@@ -1,12 +1,12 @@
 #include "TextureConverter.h"
 
-void TextureConverter::ConvertTextureWICToDDS(const std::string& filePath)
+void TextureConverter::ConvertTextureWICToDDS(const std::string& filePath, int numOptions, char* options[])
 {
 	// テクスチャファイルを読み込む
 	LoadWICTextureFromFile(filePath);
 
 	// DDS形式に書き出す
-	SaveDDSTextureToFile();
+	SaveDDSTextureToFile(numOptions,options);
 
 }
 
@@ -95,13 +95,25 @@ void TextureConverter::SeparateFilePath(const std::wstring& filePath)
 	fileName_ = exceptExt;
 }
 
-void TextureConverter::SaveDDSTextureToFile()
+void TextureConverter::SaveDDSTextureToFile(int numOptions,char* options[])
 {
+
+	size_t mipLevel = 0;
+
+	//ミニマップレベル指定を検索
+	for (int i = 0; i < numOptions; i++) {
+		if (std::string(options[i]) == "-ml") {
+			//ミニマップレベル指定
+			mipLevel = std::stoi(options[i + 1]);
+			break;
+		}
+	}
+
 	HRESULT result;
 	DirectX::ScratchImage mipChain;
 	//ミニマップの生成
 	result = DirectX::GenerateMipMaps(scratchImage_.GetImages(), scratchImage_.GetImageCount(), scratchImage_.GetMetadata(),
-		DirectX::TEX_FILTER_FLAGS::TEX_FILTER_DEFAULT, 0, mipChain);
+		DirectX::TEX_FILTER_FLAGS::TEX_FILTER_DEFAULT, mipLevel, mipChain);
 	if (SUCCEEDED(result)) {
 		//イメージとメタデータを、ミニマップ版で置き換える
 		scratchImage_ = std::move(mipChain);

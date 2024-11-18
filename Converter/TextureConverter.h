@@ -20,7 +20,16 @@ public:
     /// テクスチャをWICからDDSに変換する
     /// </summary>
     /// <param name="filePath"></param>
-    void ConvertTextureWICToDDS(const std::string& filePath);
+    void ConvertTextureWICToDDS(const std::string& filePath,int numOptions = 0,char* options[] = nullptr);
+
+
+    /// <summary>
+    /// マルチバイト文字列をワイド文字列に変換
+    /// </summary>
+    /// <param name="mString"></param>
+    /// <returns></returns>
+    static std::wstring ConvertMultiByteStringToWideString(const std::string& mString);
+
 
     /// <summary>
     /// 使用方法を出力(表示)する
@@ -35,13 +44,6 @@ private:
     void LoadWICTextureFromFile(const std::string& filePath);
 
     /// <summary>
-    /// マルチバイト文字列をワイド文字列に変換
-    /// </summary>
-    /// <param name="mString"></param>
-    /// <returns></returns>
-    static std::wstring ConvertMultiByteStringToWideString(const std::string& mString);
-
-    /// <summary>
     /// フォルダパスとファイル名を分解する
     /// </summary>
     /// <param name="filePath"></param>
@@ -50,7 +52,7 @@ private:
     /// <summary>
     /// DDSテクスチャとしてファイル書き出し
     /// </summary>
-    void SaveDDSTextureToFile();
+    void SaveDDSTextureToFile(int numOptions,char* options[]);
 
 private: // メンバ変数
     // 画像の情報
