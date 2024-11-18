@@ -15,6 +15,8 @@ void TextureConverter::LoadWICTextureFromFile(const std::string& filePath)
 	// ファイルパスをワイド文字列に変換する
 	std::wstring wfilePath = ConvertMultiByteStringToWideString(filePath);
 
+
+
 	// WICテクスチャのロード
 	HRESULT result = DirectX::LoadFromWICFile(wfilePath.c_str(), DirectX::WIC_FLAGS_NONE, &metadata_, scratchImage_);
 	assert(SUCCEEDED(result));

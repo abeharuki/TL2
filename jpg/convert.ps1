@@ -1,2 +1,6 @@
-Get-ChildItem
+$filses = Get-Item *.jpg
+
+foreach($f in $files){
+ Start-Process -FilePath TL2.exe -ArgumentList $f -wait 
+}
 pause
