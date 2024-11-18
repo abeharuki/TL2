@@ -3,10 +3,10 @@
 #include <cassert>
 
 int main(int argc, char* argv[]) {
-	for (int i = 0; i < argc; i++) {
-		printf(argv[i]);
-
-		printf("\n");
+	if (argc < NumArgument) {
+		//Žg‚¢‚©‚½‚ð•\Ž¦
+		TextureConverter::OutputUsage();
+		return 0;
 	}
 
 	assert(argc >= NumArgument);
